@@ -3,9 +3,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using PaymentGateway.Api.Configuration;
+using PaymentGateway.Api.Integration;
+using PaymentGateway.Api.Service;
 using System;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 
 namespace PaymentGateway.Api
@@ -26,9 +32,18 @@ namespace PaymentGateway.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+            services.AddScoped<IPaymentService, PaymentService>();
             RegisterDocumentationGenerator(services);
+            services.AddHttpClient(Options.DefaultName)
+                   .ConfigurePrimaryHttpMessageHandler(h =>
+                   {
+                       var handler = new HttpClientHandler();
+                       handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.Brotli;
+                       return handler;
+                   });
+            services.AddScoped<IConfigurationReader, ConfigurationReader>();
+            services.AddScoped<IBankIntegration, BankIntegration>(s => new BankIntegration(s.GetService<IConfigurationReader>(), s.GetService<IHttpClientFactory>()));
         }
 
         private void RegisterDocumentationGenerator(IServiceCollection services)
