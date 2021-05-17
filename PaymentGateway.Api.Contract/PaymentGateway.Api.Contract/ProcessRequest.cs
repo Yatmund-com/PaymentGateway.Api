@@ -15,6 +15,8 @@ namespace PaymentGateway.Api.Contract
         public int CVV { get; set; }
         [DataMember(Name = "amount")]
         public decimal Amount { get; set; }
+        [DataMember(Name = "currencyCode")]
+        public string CurrencyCode { get; set; } = null!;
         [DataMember(Name = "merchantId")]
         public string MerchantId { get; set; } = null!;
     }
