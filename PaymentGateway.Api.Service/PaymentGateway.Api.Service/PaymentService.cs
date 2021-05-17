@@ -1,5 +1,6 @@
 ﻿using PaymentGateway.Api.Contract;
 using PaymentGateway.Api.Integration;
+using PaymentGateway.Api.Service.Utility;
 using System;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace PaymentGateway.Api.Service
             return new DetailsResponse
             {
                 Success = true,
-                MaskedCardNo = "****4555"
+                MaskedCardNo = ""
             };
         }
 

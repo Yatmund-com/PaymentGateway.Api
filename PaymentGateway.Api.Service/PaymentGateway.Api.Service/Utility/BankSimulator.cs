@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentGateway.Api.Integration.Utility
+namespace PaymentGateway.Api.Service.Utility
 {
-    public static class BankSimulator
+    public static class CreditCardUtility
     {
         public static string MaskCardNo(string cardNo)
         {

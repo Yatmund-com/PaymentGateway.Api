@@ -7,7 +7,7 @@ namespace PaymentGateway.Api.Contract
     {
         [DataMember(Name = "transactionId")]
         public string TransactionId { get; set; } = null!;
-        [DataMember(Name = "sucess")]
+        [DataMember(Name = "success")]
         public bool Success { get; set; }
         [DataMember(Name = "reason")]
         public string Reason { get; set; } = null!;
