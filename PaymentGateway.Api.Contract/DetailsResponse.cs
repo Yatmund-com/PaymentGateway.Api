@@ -12,6 +12,8 @@ namespace PaymentGateway.Api.Contract
         [DataMember(Name = "amount")]
         public decimal Amount { get; set; }
         [DataMember(Name = "currencyCode")]
-        public string CurrencyCode { get; set; }
+        public string CurrencyCode { get; set; } = null!;
+        [DataMember]
+        public string BankMessage { get; set; } = null!;
     }
 }

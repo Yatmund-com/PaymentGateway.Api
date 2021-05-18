@@ -11,6 +11,5 @@ namespace PaymentGateway.Api.Contract
         public bool Success { get; set; }
         [DataMember(Name = "reason")]
         public string Reason { get; set; } = null!;
-
     }
 }

@@ -2,11 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using PaymentGateway.Api.Contract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PaymentGateway.Api.Integration.Tests
@@ -60,10 +57,35 @@ namespace PaymentGateway.Api.Integration.Tests
 
 
             // Assert
-            processResponse.EnsureSuccessStatusCode();
+            Assert.AreEqual(HttpStatusCode.BadRequest, processResponse.StatusCode);
             var processResponseContent = await processResponse.Content.ReadAsStringAsync();
             var deserializedResponse = JsonConvert.DeserializeObject<ProcessResponse>(processResponseContent);
             Assert.IsFalse(deserializedResponse.Success);
+        }
+
+        [TestMethod]
+        public async Task Return_Successful_DetailsResponse_ByMerchantId()
+        {
+            // Act
+            var processResponse = await _httpClient.GetAsync(GetDetailsUrl + "?merchantId=merchantId1");
+
+            // Assert
+            processResponse.EnsureSuccessStatusCode();
+            var processResponseContent = await processResponse.Content.ReadAsStringAsync();
+            var deserializedResponse = JsonConvert.DeserializeObject<DetailsResponse>(processResponseContent);
+            Assert.IsTrue(deserializedResponse.Success);
+        }
+        [TestMethod]
+        public async Task Return_Successful_DetailsResponse_ByPaymentId()
+        {
+            // Act
+            var processResponse = await _httpClient.GetAsync(GetDetailsUrl + "?paymentId=d54471eb-db6a-4738-b014-11ca39818889");
+
+            // Assert
+            processResponse.EnsureSuccessStatusCode();
+            var processResponseContent = await processResponse.Content.ReadAsStringAsync();
+            var deserializedResponse = JsonConvert.DeserializeObject<DetailsResponse>(processResponseContent);
+            Assert.IsTrue(deserializedResponse.Success);
         }
     }
 }

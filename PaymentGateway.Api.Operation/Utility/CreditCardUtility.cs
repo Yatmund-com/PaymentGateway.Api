@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PaymentGateway.Api.Service.Utility
+﻿namespace PaymentGateway.Api.Operation
 {
     public static class CreditCardUtility
     {
@@ -18,7 +12,6 @@ namespace PaymentGateway.Api.Service.Utility
                 maskedCardNo += "*";
             }
             return maskedCardNo += cardNo.Substring(cardIndexStart);
-
         }
     }
 }

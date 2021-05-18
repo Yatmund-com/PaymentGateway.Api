@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using PaymentGateway.Api.Configuration;
 using PaymentGateway.Api.Integration;
+using PaymentGateway.Api.Operation;
 using PaymentGateway.Api.Service;
 using System;
 using System.IO;
@@ -44,6 +45,7 @@ namespace PaymentGateway.Api
                    });
             services.AddScoped<IConfigurationReader, ConfigurationReader>();
             services.AddScoped<IBankIntegration, BankIntegration>(s => new BankIntegration(s.GetService<IConfigurationReader>(), s.GetService<IHttpClientFactory>()));
+            services.AddTransient<IOperations, Operations>();
         }
 
         private void RegisterDocumentationGenerator(IServiceCollection services)
