@@ -34,6 +34,7 @@ namespace PaymentGateway.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApplicationInsightsTelemetry();
             services.AddScoped<IPaymentService, PaymentService>();
             RegisterDocumentationGenerator(services);
             services.AddHttpClient(Options.DefaultName)
