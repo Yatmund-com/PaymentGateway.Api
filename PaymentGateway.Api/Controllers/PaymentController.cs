@@ -27,13 +27,16 @@ namespace PaymentGateway.Api.Controllers
         [ProducesResponseType(typeof(DetailsResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetDetailsAsync([FromQuery] string? merchantId, [FromQuery] string? paymentId)
         {
-            var response = await _paymentService.GetDetailsAsync(merchantId, paymentId);
-            if (response != null)
+            using (_logger.BeginScope("Getting payment details for Payment Id {PaymentId} and/or Merchant Id {MerchantId}", paymentId, merchantId))
             {
-                return Ok(response);
-            }
+                var response = await _paymentService.GetDetailsAsync(merchantId, paymentId);
+                if (response != null)
+                {
+                    return Ok(response);
+                }
 
-            return NotFound(new DetailsResponse { Message = "Payment not found, please check merchant or payment id again.", ErrorMessage = "Payment not found" });
+                return NotFound(new DetailsResponse { Message = "Payment not found, please check merchant or payment id again.", ErrorMessage = "Payment not found" });
+            }
         }
 
         [HttpPost]
@@ -42,14 +45,16 @@ namespace PaymentGateway.Api.Controllers
         [ProducesResponseType(typeof(ProcessResponse), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> ProcessAsync([FromBody] ProcessRequest request)
         {
-
-            var response = await _paymentService.ProcessPaymentAsync(request);
-            if (response.Success)
+            using (_logger.BeginScope("Processing payment for Merchant Id {MerchantId} and Amount {Amount}", request.MerchantId, request.Amount))
             {
-                return Ok(response);
-            }
+                var response = await _paymentService.ProcessPaymentAsync(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
 
-            return BadRequest(response);
+                return BadRequest(response);
+            }
         }
     }
 }

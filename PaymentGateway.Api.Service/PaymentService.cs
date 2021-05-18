@@ -36,7 +36,7 @@ namespace PaymentGateway.Api.Service
         public async Task<ProcessResponse> ProcessPaymentAsync(ProcessRequest processRequest)
         {
             var paymentId = Guid.NewGuid().ToString();
-            var bankRequest = new BankRequest(GetBank(processRequest.CardNo), processRequest.CardNo);
+            var bankRequest = new BankRequest(GetBank(processRequest.CardNo), processRequest.CardNo, processRequest.Amount);
 
             var bankResponse = await _bankIntegration.SendtoAcquirerAsync(bankRequest);
 
