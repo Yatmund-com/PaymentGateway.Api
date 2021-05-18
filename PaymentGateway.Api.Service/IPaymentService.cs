@@ -5,7 +5,7 @@ namespace PaymentGateway.Api.Service
 {
     public interface IPaymentService
     {
-        Task<DetailsResponse> GetDetailsAsync(string? merchantId, string? paymentId);
+        Task<DetailsResponse?> GetDetailsAsync(string? merchantId, string? paymentId);
         Task<ProcessResponse> ProcessPaymentAsync(ProcessRequest processRequest);
     }
 }

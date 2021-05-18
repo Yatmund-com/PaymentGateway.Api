@@ -25,19 +25,31 @@ namespace PaymentGateway.Api.Controllers
         [Route("details")]
         [ProducesResponseType(typeof(DetailsResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(DetailsResponse), (int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<DetailsResponse>> GetAsync([FromQuery] string? merchantId, [FromQuery] string? paymentId)
+        public async Task<IActionResult> GetDetailsAsync([FromQuery] string? merchantId, [FromQuery] string? paymentId)
         {
-            return await _paymentService.GetDetailsAsync(merchantId, paymentId);
+            var response = await _paymentService.GetDetailsAsync(merchantId, paymentId);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+
+            return NotFound(new DetailsResponse { Message = "Payment not found, please check merchant or payment id again.", ErrorMessage = "Payment not found" });
         }
 
         [HttpPost]
         [Route("process")]
         [ProducesResponseType(typeof(ProcessResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProcessResponse), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<ProcessResponse>> ProcessAsync([FromBody] ProcessRequest request)
+        public async Task<IActionResult> ProcessAsync([FromBody] ProcessRequest request)
         {
 
-            return await _paymentService.ProcessPaymentAsync(request);
+            var response = await _paymentService.ProcessPaymentAsync(request);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+
+            return BadRequest(response);
         }
     }
 }

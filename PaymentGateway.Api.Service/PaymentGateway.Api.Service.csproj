@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PaymentGateway.Api.Contract\PaymentGateway.Api.Contract\PaymentGateway.Api.Contract.csproj" />
-    <ProjectReference Include="..\..\PaymentGateway.Api.Integration\PaymentGateway.Api.Integration\PaymentGateway.Api.Integration.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Contract\PaymentGateway.Api.Contract.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Integration\PaymentGateway.Api.Integration.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Operation\PaymentGateway.Api.Operation.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,10 +15,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PaymentGateway.Api.Configuration\PaymentGateway.Api.Configuration\PaymentGateway.Api.Configuration.csproj" />
-    <ProjectReference Include="..\PaymentGateway.Api.Contract\PaymentGateway.Api.Contract\PaymentGateway.Api.Contract.csproj" />
-    <ProjectReference Include="..\PaymentGateway.Api.Integration\PaymentGateway.Api.Integration\PaymentGateway.Api.Integration.csproj" />
-    <ProjectReference Include="..\PaymentGateway.Api.Service\PaymentGateway.Api.Service\PaymentGateway.Api.Service.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Configuration\PaymentGateway.Api.Configuration.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Contract\PaymentGateway.Api.Contract.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Integration\PaymentGateway.Api.Integration.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Operation\PaymentGateway.Api.Operation.csproj" />
+    <ProjectReference Include="..\PaymentGateway.Api.Service\PaymentGateway.Api.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Database\d54471eb-db6a-4738-b014-11ca39818889-merchantId1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Database\ef57a611-6a33-4838-a8dd-914283597327-merchantId2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
